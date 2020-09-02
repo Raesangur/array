@@ -101,7 +101,7 @@ ARRAY_CLASS_SCOPE__::array(const ItemType& value_)
 template<ARRAY_TEMPLATE_DECLARATION__>
 ARRAY_CLASS_SCOPE__::array(const IteratorType beginIterator_, const IteratorType endIterator_)
 {
-    if constexpr(std::is_constant_evaluated())
+    if (std::is_constant_evaluated())
     {
         m_size = endIterator_ - beginIterator_;
     }
@@ -126,7 +126,7 @@ template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
 ARRAY_CLASS_SCOPE__::array(const array<ItemType, OtherSize>& otherArray_)
 {
-    if constexpr(std::is_constant_evaluated())
+    if (std::is_constant_evaluated())
     {
         m_size = otherArray_.length();
     }
@@ -159,7 +159,7 @@ template<std::size_t OtherSize>
 array<ItemType, ItemCount>&
 ARRAY_CLASS_SCOPE__::operator=(const array<ItemType, OtherSize>& copy_)
 {
-    if constexpr(std::is_constant_evaluated())
+    if (std::is_constant_evaluated())
     {
         m_size = copy_.length();
     }
@@ -193,7 +193,7 @@ template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
 ARRAY_CLASS_SCOPE__::array(array<ItemType, OtherSize>&& move_)
 {
-    if constexpr(std::is_constant_evaluated())
+    if (std::is_constant_evaluated())
     {
         m_size = move_.length();
     }
@@ -241,8 +241,10 @@ ARRAY_CLASS_SCOPE__::operator=(array<ItemType, OtherSize>&& move_)
  *              [defaults : AllocatorType{}]
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(InitializerListType ilist_) : m_size{ilist_.size()}
+ARRAY_CLASS_SCOPE__::array(InitializerListType ilist_)
 {
+    check_fit(ilist_.size());
+
     array_constructor();
 
     std::copy(ilist_.begin(), ilist_.end(), begin());
@@ -436,8 +438,8 @@ template<ARRAY_TEMPLATE_DECLARATION__>
 inline void
 ARRAY_CLASS_SCOPE__::array_constructor()
 {
-    m_beginIterator = m_data;
-    m_endIterator   = m_data + m_size;
+    m_beginIterator.ptr() = &m_data[0];
+    m_endIterator.ptr()   = m_data + m_size;
 }
 
 
