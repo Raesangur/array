@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-project(vectors)
+project(arrays)
 
 # Configure language as C++20
 set(CMAKE_CXX_STANDARD 20)
@@ -19,7 +19,7 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # Set current project as debug project
 # https://stackoverflow.com/questions/7304625/how-do-i-change-the-startup-project-of-a-visual-studio-solution-via-cmake/37994396#37994396
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT vectors)
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT arrays)
 
 # Generate clang .json compilation database
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -114,7 +114,7 @@ endforeach()
 
 
 # Create executable
-add_executable(vectors ${good_sources_list})
+add_executable(arrays ${good_sources_list})
 
 
 
@@ -249,7 +249,7 @@ else()
 endif()
 
 # Apply selected warnings
-target_compile_options(vectors PRIVATE ${PROJECT_WARNINGS})
+target_compile_options(arrays PRIVATE ${PROJECT_WARNINGS})
 
 # -----------------------------------------------------------------------------
 # Clang sanitizers
@@ -260,20 +260,20 @@ target_compile_options(vectors PRIVATE ${PROJECT_WARNINGS})
 if(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang")
     if(PEL_CLANG_USE_ADDRESS_SANITIZER)
        message(STATUS "Enabling Clang's Address Sanitizer") 
-       target_compile_options(vectors INTERFACE -fsanitize=address)
-       target_link_libraries(vectors INTERFACE -fsanitize=address)
+       target_compile_options(arrays INTERFACE -fsanitize=address)
+       target_link_libraries(arrays INTERFACE -fsanitize=address)
     elseif(PEL_CLANG_USE_THREAD_SANITIZER)
        message(STATUS "Enabling Clang's Thread Sanitizer")
-       target_compile_options(vectors INTERFACE -fsanitize=thread)
-       target_link_libraries(vectors INTERFACE -fsanitize=thread)
+       target_compile_options(arrays INTERFACE -fsanitize=thread)
+       target_link_libraries(arrays INTERFACE -fsanitize=thread)
     elseif(PEL_CLANG__USE_LEAK_SANITIZER)
        message(STATUS "Enabling Clang's Memory Leak Sanitizer")
-       target_compile_options(vectors INTERFACE -fsanitize=leak)
-       target_link_libraries(vectors INTERFACE -fsanitize=leak)
+       target_compile_options(arrays INTERFACE -fsanitize=leak)
+       target_link_libraries(arrays INTERFACE -fsanitize=leak)
     elseif(PEL_CLANG_USE_UNDEFINED_BEHAVIOR_SANITIZER)
        message(STATUS "Enabling Clang's Undefined Behavior Sanitizer")
-       target_compile_options(vectors INTERFACE -fsanitize=undefined)
-       target_link_libraries(vectors INTERFACE -fsanitize=undefined)
+       target_compile_options(arrays INTERFACE -fsanitize=undefined)
+       target_link_libraries(arrays INTERFACE -fsanitize=undefined)
     endif()
 endif()
 
