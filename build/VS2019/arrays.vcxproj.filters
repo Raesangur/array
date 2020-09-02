@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\GitHub\array\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\GitHub\array\src\array.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\GitHub\array\src\array.inl">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\GitHub\array\src\container_base\src\container_base.hpp">
+      <Filter>src\container_base\src</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\GitHub\array\src\container_base\src\container_base.inl">
+      <Filter>src\container_base\src</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\GitHub\array\src\container_base\src\iterator_base.hpp">
+      <Filter>src\container_base\src</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\GitHub\array\src\container_base\src\test\testContainer.hpp">
+      <Filter>src\container_base\src\test</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{49F5362A-CD6D-3B44-81D1-27745556628E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\container_base">
+      <UniqueIdentifier>{5A4DB263-0407-3F26-8C42-97623BAC66ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\container_base\src">
+      <UniqueIdentifier>{38D9650B-7BF8-3C5D-8190-2D2C855985B8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\container_base\src\test">
+      <UniqueIdentifier>{A070B531-CB32-3F52-B72F-DADD2E458EF1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

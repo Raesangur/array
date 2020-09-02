@@ -29,6 +29,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <type_traits>
 
 
 namespace pel
@@ -63,7 +64,7 @@ public:
     template<SizeType OtherSize>
     explicit array(const array<ItemType, OtherSize>& copy_);
     explicit array(const array& copy_);
-    
+
     template<SizeType OtherSize>
     array& operator=(const array<ItemType, OtherSize>& copy_);
     array& operator=(const array& copy_);
@@ -100,29 +101,23 @@ public:
 
 
     /*********************************************************************************************/
-    /* Element management ---------------------------------------------------------------------- */
-    IteratorType replace_back(const ItemType& value_);
-    IteratorType replace_front(const ItemType& value_);
-    IteratorType replace(const ItemType& value_, SizeType offset_ = 0);
-
-
-
-    /*********************************************************************************************/
     /* Misc ------------------------------------------------------------------------------------ */
     [[nodiscard]] std::string to_string() const override;
 
 
     /*********************************************************************************************/
     /* Private methods ------------------------------------------------------------------------- */
-    private:
+private:
     void check_fit(SizeType size_) const;
-    
+
+    void array_constructor();
+
 
     /*********************************************************************************************/
     /* Variables ------------------------------------------------------------------------------- */
 private:
-    constexpr SizeType m_Size = ItemCount;
-    ItemType m_data[m_Size];
+    constexpr static SizeType m_size = ItemCount;
+    ItemType           m_data[m_size];
 };
 
 }        // namespace pel
