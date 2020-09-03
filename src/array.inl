@@ -77,7 +77,7 @@ operator<<(std::ostream& os_, const array<ItemType, ItemCount>& arr_) noexcept
  * \param       value_:  Value to initialize all the elements initially allocated with.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(const ItemType& value_)
+constexpr ARRAY_CLASS_SCOPE__::array(const ItemType& value_)
 {
     array_constructor();
 
@@ -99,9 +99,10 @@ ARRAY_CLASS_SCOPE__::array(const ItemType& value_)
  * \param       endIterator_:   End iterator of another array to end the copy.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(const IteratorType beginIterator_, const IteratorType endIterator_)
+constexpr ARRAY_CLASS_SCOPE__::array(const IteratorType beginIterator_,
+                                     const IteratorType endIterator_)
 {
-    if (std::is_constant_evaluated())
+    if(std::is_constant_evaluated())
     {
         m_size = endIterator_ - beginIterator_;
     }
@@ -124,9 +125,9 @@ ARRAY_CLASS_SCOPE__::array(const IteratorType beginIterator_, const IteratorType
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
-ARRAY_CLASS_SCOPE__::array(const array<ItemType, OtherSize>& otherArray_)
+constexpr ARRAY_CLASS_SCOPE__::array(const array<ItemType, OtherSize>& otherArray_)
 {
-    if (std::is_constant_evaluated())
+    if(std::is_constant_evaluated())
     {
         m_size = otherArray_.length();
     }
@@ -141,7 +142,7 @@ ARRAY_CLASS_SCOPE__::array(const array<ItemType, OtherSize>& otherArray_)
 }
 
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(const array& otherArray_)
+constexpr ARRAY_CLASS_SCOPE__::array(const array& otherArray_)
 {
     array_constructor();
 
@@ -156,10 +157,10 @@ ARRAY_CLASS_SCOPE__::array(const array& otherArray_)
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
-array<ItemType, ItemCount>&
+constexpr inline array<ItemType, ItemCount>&
 ARRAY_CLASS_SCOPE__::operator=(const array<ItemType, OtherSize>& copy_)
 {
-    if (std::is_constant_evaluated())
+    if(std::is_constant_evaluated())
     {
         m_size = copy_.length();
     }
@@ -174,7 +175,7 @@ ARRAY_CLASS_SCOPE__::operator=(const array<ItemType, OtherSize>& copy_)
 }
 
 template<ARRAY_TEMPLATE_DECLARATION__>
-array<ItemType, ItemCount>&
+constexpr inline array<ItemType, ItemCount>&
 ARRAY_CLASS_SCOPE__::operator=(const array<ItemType, ItemCount>& copy_)
 {
     return operator=<ItemType, ItemCount>(copy_);
@@ -191,9 +192,9 @@ ARRAY_CLASS_SCOPE__::operator=(const array<ItemType, ItemCount>& copy_)
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
-ARRAY_CLASS_SCOPE__::array(array<ItemType, OtherSize>&& move_)
+constexpr ARRAY_CLASS_SCOPE__::array(array<ItemType, OtherSize>&& move_)
 {
-    if (std::is_constant_evaluated())
+    if(std::is_constant_evaluated())
     {
         m_size = move_.length();
     }
@@ -217,7 +218,7 @@ ARRAY_CLASS_SCOPE__::array(array<ItemType, OtherSize>&& move_)
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
 template<std::size_t OtherSize>
-typename array<ItemType, ItemCount>&
+constexpr inline array<ItemType, ItemCount>&
 ARRAY_CLASS_SCOPE__::operator=(array<ItemType, OtherSize>&& move_)
 {
     if(this != std::addressof(move_))
@@ -241,7 +242,7 @@ ARRAY_CLASS_SCOPE__::operator=(array<ItemType, OtherSize>&& move_)
  *              [defaults : AllocatorType{}]
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(InitializerListType ilist_)
+constexpr ARRAY_CLASS_SCOPE__::array(InitializerListType ilist_)
 {
     check_fit(ilist_.size());
 
@@ -263,7 +264,7 @@ ARRAY_CLASS_SCOPE__::array(InitializerListType ilist_)
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
 template<typename... Args>
-ARRAY_CLASS_SCOPE__::array(Args&&... args_)
+constexpr ARRAY_CLASS_SCOPE__::array(Args&&... args_)
 {
     /* clang-format off */
     auto builder = [&](ItemType& element)
@@ -292,7 +293,7 @@ ARRAY_CLASS_SCOPE__::array(Args&&... args_)
  *              [defaults : AllocatorType{}]
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::array(std::function<ItemType(void)> function_)
+constexpr ARRAY_CLASS_SCOPE__::array(std::function<ItemType(void)> function_)
 {
     array_constructor();
 
@@ -304,12 +305,12 @@ ARRAY_CLASS_SCOPE__::array(std::function<ItemType(void)> function_)
  **************************************************************************************************
  * \brief       Destructor for the array class.
  *************************************************************************************************/
-template<ARRAY_TEMPLATE_DECLARATION__>
-ARRAY_CLASS_SCOPE__::~array()
-{
-    /* Destroy elements in the allocated memory */
-    std::destroy(begin(), end());
-}
+//template<ARRAY_TEMPLATE_DECLARATION__>
+//ARRAY_CLASS_SCOPE__::~array()
+//{
+//    /* Destroy elements in the allocated memory */
+//    std::destroy(begin(), end());
+//}
 
 
 /*************************************************************************************************/
@@ -324,7 +325,7 @@ ARRAY_CLASS_SCOPE__::~array()
  * \retval      ItemType*: Pointer to the beginning of the vector's data.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline ItemType*
+[[nodiscard]] constexpr inline ItemType*
 ARRAY_CLASS_SCOPE__::data() noexcept
 {
     return begin().ptr();
@@ -338,7 +339,7 @@ ARRAY_CLASS_SCOPE__::data() noexcept
  * \retval      ItemType*: Const pointer to the beginning of the vector's data.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline const ItemType*
+[[nodiscard]] constexpr inline const ItemType*
 ARRAY_CLASS_SCOPE__::data() const noexcept
 {
     return begin().ptr();
@@ -356,7 +357,7 @@ ARRAY_CLASS_SCOPE__::data() const noexcept
  *              [defaults : 1]
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-inline void
+constexpr inline void
 ARRAY_CLASS_SCOPE__::assign(const ItemType& value_, DifferenceType offset_, SizeType count_)
 {
     if constexpr(array_safeness == true)
@@ -377,7 +378,7 @@ ARRAY_CLASS_SCOPE__::assign(const ItemType& value_, DifferenceType offset_, Size
  *              [defaults : 0]
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-inline void
+constexpr inline void
 ARRAY_CLASS_SCOPE__::assign(InitializerListType ilist_, DifferenceType offset_)
 {
     if constexpr(array_safeness == true)
@@ -401,7 +402,7 @@ ARRAY_CLASS_SCOPE__::assign(InitializerListType ilist_, DifferenceType offset_)
  *              string.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-[[nodiscard]] inline std::string
+[[nodiscard]] constexpr inline std::string
 ARRAY_CLASS_SCOPE__::to_string() const
 {
     std::ostringstream os;
@@ -422,7 +423,7 @@ ARRAY_CLASS_SCOPE__::to_string() const
  * \param       extraLength_: Numbers of elements to add to the current length.
  *************************************************************************************************/
 template<ARRAY_TEMPLATE_DECLARATION__>
-inline void
+constexpr inline void
 ARRAY_CLASS_SCOPE__::check_fit(SizeType size_) const
 {
     if constexpr(array_safeness == true)
@@ -435,7 +436,7 @@ ARRAY_CLASS_SCOPE__::check_fit(SizeType size_) const
 }
 
 template<ARRAY_TEMPLATE_DECLARATION__>
-inline void
+constexpr inline void
 ARRAY_CLASS_SCOPE__::array_constructor()
 {
     m_beginIterator.ptr() = &m_data[0];

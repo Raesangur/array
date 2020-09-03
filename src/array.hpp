@@ -55,69 +55,69 @@ public:
 
     /*********************************************************************************************/
     /* Constructors ---------------------------------------------------------------------------- */
-    explicit array() = default;
-    explicit array(const ItemType& value_);
-    explicit array(IteratorType beginIterator_, IteratorType endIterator_);
+    constexpr explicit array() = default;
+    constexpr explicit array(const ItemType& value_);
+    constexpr explicit array(IteratorType beginIterator_, IteratorType endIterator_);
 
     /*-----------------------------------------------*/
     /* Copy constructor and copy-assignment operator */
     template<SizeType OtherSize>
-    explicit array(const array<ItemType, OtherSize>& copy_);
-    explicit array(const array& copy_);
+    constexpr explicit array(const array<ItemType, OtherSize>& copy_);
+    constexpr explicit array(const array& copy_);
 
     template<SizeType OtherSize>
-    array& operator=(const array<ItemType, OtherSize>& copy_);
-    array& operator=(const array& copy_);
+    constexpr array& operator=(const array<ItemType, OtherSize>& copy_);
+    constexpr array& operator=(const array& copy_);
 
     /*-----------------------------------------------*/
     /* Move constructor and move-assignment operator */
     template<SizeType OtherSize>
-    explicit array(array<ItemType, OtherSize>&& move_);
+    constexpr explicit array(array<ItemType, OtherSize>&& move_);
     template<SizeType OtherSize>
-    array& operator=(array<ItemType, OtherSize>&& move_);
+    constexpr array& operator=(array<ItemType, OtherSize>&& move_);
 
 
     /*----------------------*/
     /* Special constructors */
-    array(InitializerListType ilist_);
+    constexpr array(InitializerListType ilist_);
 
     template<typename... Args>
-    explicit array(Args&&... args_);
+    constexpr explicit array(Args&&... args_);
 
-    explicit array(std::function<ItemType(void)> function_);
+    constexpr explicit array(std::function<ItemType(void)> function_);
 
     /*------------*/
     /* Destructor */
-    ~array() override;
+    /* ~array(); */
 
 
     /*********************************************************************************************/
     /* Element accessors ----------------------------------------------------------------------- */
-    [[nodiscard]] ItemType*       data() noexcept;
-    [[nodiscard]] const ItemType* data() const noexcept;
+    [[nodiscard]] constexpr ItemType*       data() noexcept;
+    [[nodiscard]] constexpr const ItemType* data() const noexcept;
 
-    void assign(const ItemType& value_, DifferenceType offset_ = 0, SizeType count_ = 1);
-    void assign(InitializerListType ilist_, DifferenceType offset_ = 0);
+    constexpr void assign(const ItemType& value_, DifferenceType offset_ = 0, SizeType count_ = 1);
+    constexpr void assign(InitializerListType ilist_, DifferenceType offset_ = 0);
 
 
     /*********************************************************************************************/
     /* Misc ------------------------------------------------------------------------------------ */
-    [[nodiscard]] std::string to_string() const override;
+    [[nodiscard]] constexpr std::string to_string() const override;
 
 
     /*********************************************************************************************/
     /* Private methods ------------------------------------------------------------------------- */
 private:
-    void check_fit(SizeType size_) const;
+    constexpr void check_fit(SizeType size_) const;
 
-    void array_constructor();
+    constexpr void array_constructor();
 
 
     /*********************************************************************************************/
     /* Variables ------------------------------------------------------------------------------- */
 private:
     constexpr static SizeType m_size = ItemCount;
-    ItemType           m_data[m_size];
+    ItemType        m_data[m_size];
 };
 
 }        // namespace pel
